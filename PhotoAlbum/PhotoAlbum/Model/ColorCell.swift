@@ -15,4 +15,7 @@ class ColorCell: Cellable {
         color = Color.random()
     }
     
+    func getColor() -> Color {
+        return self.color
+    }
 }
