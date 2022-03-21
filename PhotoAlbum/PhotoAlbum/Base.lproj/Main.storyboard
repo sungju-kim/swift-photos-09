@@ -49,6 +49,9 @@
                             <constraint firstItem="KIO-nK-PDg" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="hay-Eo-q1R"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="albumCollectionView" destination="KIO-nK-PDg" id="mnD-w8-wY6"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
