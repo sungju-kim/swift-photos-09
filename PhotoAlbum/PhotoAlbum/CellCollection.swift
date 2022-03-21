@@ -1,5 +1,5 @@
 //
-//  ColorCell.swift
+//  CellCollection.swift
 //  PhotoAlbum
 //
 //  Created by 최예주 on 2022/03/21.
@@ -7,12 +7,14 @@
 
 import Foundation
 
-class ColorCell: Cellable {
+class CellCollection{
     
-    private var color: Color
+    private var cells: [Cellable] = []
     
     init() {
-        color = Color.random()
+        
     }
+    
+
     
 }
