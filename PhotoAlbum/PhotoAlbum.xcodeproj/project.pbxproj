@@ -70,19 +70,59 @@
 			children = (
 				6C0479E627E81D2800C5E1BF /* AppDelegate.swift */,
 				6C0479E827E81D2800C5E1BF /* SceneDelegate.swift */,
-				6C0479EA27E81D2800C5E1BF /* ViewController.swift */,
-				B3AEF1EC27E8A14200D279BC /* AlbumCollectionViewCell.swift */,
-				B3AEF1EE27E8A2F600D279BC /* ColorCell.swift */,
-				B3AEF1F227E8A8DC00D279BC /* Cellable.swift */,
-				B3AEF1F427E8A99F00D279BC /* CellCollection.swift */,
-				6CA30BE127E8AF86005068DB /* CellFactory.swift */,
-				B3AEF1F027E8A36000D279BC /* Color.swift */,
+				6CA30BE627E8B157005068DB /* VC */,
+				6CA30BE427E8B129005068DB /* View */,
+				6CA30BE327E8B0E2005068DB /* Model */,
+				6CA30BE727E8B1A2005068DB /* Protocol */,
+				6CA30BE527E8B144005068DB /* Factory */,
 				6C0479EC27E81D2800C5E1BF /* Main.storyboard */,
 				6C0479EF27E81D2C00C5E1BF /* Assets.xcassets */,
 				6C0479F127E81D2C00C5E1BF /* LaunchScreen.storyboard */,
 				6C0479F427E81D2C00C5E1BF /* Info.plist */,
 			);
 			path = PhotoAlbum;
+			sourceTree = "<group>";
+		};
+		6CA30BE327E8B0E2005068DB /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B3AEF1EE27E8A2F600D279BC /* ColorCell.swift */,
+				B3AEF1F427E8A99F00D279BC /* CellCollection.swift */,
+				B3AEF1F027E8A36000D279BC /* Color.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		6CA30BE427E8B129005068DB /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B3AEF1EC27E8A14200D279BC /* AlbumCollectionViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		6CA30BE527E8B144005068DB /* Factory */ = {
+			isa = PBXGroup;
+			children = (
+				6CA30BE127E8AF86005068DB /* CellFactory.swift */,
+			);
+			path = Factory;
+			sourceTree = "<group>";
+		};
+		6CA30BE627E8B157005068DB /* VC */ = {
+			isa = PBXGroup;
+			children = (
+				6C0479EA27E81D2800C5E1BF /* ViewController.swift */,
+			);
+			path = VC;
+			sourceTree = "<group>";
+		};
+		6CA30BE727E8B1A2005068DB /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				B3AEF1F227E8A8DC00D279BC /* Cellable.swift */,
+			);
+			path = Protocol;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
