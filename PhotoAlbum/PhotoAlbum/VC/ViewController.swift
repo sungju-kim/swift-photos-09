@@ -45,7 +45,7 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
         if let cellModel = cellCollection[indexPath.row] as? ColorCell {
             let cellColor = cellModel.getColor()
             let convertedColor = Convertor.convertColor(from: cellColor)
-            cell.backgroundColor = convertedColor
+            cell.changeColor(to: convertedColor)
         }
         return cell
     }
