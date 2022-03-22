@@ -6,16 +6,29 @@
 //
 
 import Foundation
+import CoreGraphics
 
 class ColorCellModel: Cellable {
     
-    private var color: Color
+    private var color: CGColor
     
     init() {
-        color = Color.random()
+        color = CGColor.random()
     }
     
-    func getColor() -> Color {
+    func getColor() -> CGColor {
         return self.color
+    }
+}
+
+
+extension CGColor{
+
+    static func random() -> CGColor {
+        
+        var randomColor: CGFloat{
+            CGFloat(Int.random(in: 0...255))
+        }
+        return CGColor(red: randomColor, green: randomColor, blue: randomColor, alpha: 1)
     }
 }

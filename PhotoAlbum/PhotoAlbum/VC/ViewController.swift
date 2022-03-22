@@ -44,7 +44,7 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AlbumCollectionViewCell.cellID, for: indexPath) as? AlbumCollectionViewCell else { return UICollectionViewCell()}
         if let cellModel = cellCollection[indexPath.row] as? ColorCellModel {
             let cellColor = cellModel.getColor()
-            let convertedColor = Convertor.convertColor(from: cellColor)
+            let convertedColor = UIColor(cgColor: cellColor)
             cell.changeColor(to: convertedColor)
         }
         return cell
