@@ -6,3 +6,11 @@
 //
 
 import Foundation
+import UIKit
+
+class ColorCell: AlbumCollectionViewCell, ColorChangeable {
+    
+    func changeColor(to color: UIColor) {
+        self.backgroundColor = color
+    }
+}
