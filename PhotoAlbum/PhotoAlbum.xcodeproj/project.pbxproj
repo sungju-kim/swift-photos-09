@@ -108,6 +108,7 @@
 			children = (
 				B3AEF1EE27E8A2F600D279BC /* ColorCellModel.swift */,
 				B3AEF1F427E8A99F00D279BC /* CellCollection.swift */,
+				6CA30BEE27E9AE86005068DB /* PhotoCellModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
