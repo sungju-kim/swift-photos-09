@@ -10,5 +10,10 @@ import UIKit
 class AlbumCollectionViewCell: UICollectionViewCell {
     
     static let cellID = "albumCell"
+
+    func changeColor(to color: UIColor) {
+        self.backgroundColor = color
+    }
     
+     
 }

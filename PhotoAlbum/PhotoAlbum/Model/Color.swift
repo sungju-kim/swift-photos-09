@@ -9,9 +9,9 @@ import Foundation
 
 class Color{
     
-    private var red: UInt8
-    private var green: UInt8
-    private var blue: UInt8
+    private(set) var red: UInt8
+    private(set) var green: UInt8
+    private(set) var blue: UInt8
     
     
     

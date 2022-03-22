@@ -10,6 +10,8 @@ import UIKit
 class ViewController: UIViewController {
 
     @IBOutlet var albumCollectionView: UICollectionView!
+    
+    let cellCollection = CellCollection()
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -19,7 +21,14 @@ class ViewController: UIViewController {
         albumCollectionView.delegate = self
         albumCollectionView.dataSource = self
         
-        
+        make40Cell()
+    }
+    
+    func make40Cell() {
+        for _ in 0..<40 {
+            let newCell = CellFactory.makeColorCell()
+            cellCollection.addCell(with: newCell)
+        }
     }
 
 
@@ -28,18 +37,16 @@ class ViewController: UIViewController {
 extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        return 0
+        return self.cellCollection.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AlbumCollectionViewCell.cellID, for: indexPath) as? AlbumCollectionViewCell else { return UICollectionViewCell()}
-        
-        
+        if let cellModel = cellCollection[indexPath.row] as? ColorCell {
+            let cellColor = cellModel.getColor()
+            let convertedColor = Convertor.convertColor(from: cellColor)
+            cell.changeColor(to: convertedColor)
+        }
         return cell
     }
-    
-    
-    
-    
-    
 }
