@@ -8,7 +8,11 @@
 import Foundation
 
 struct CellModelFactory {
-    static func makeColorCell() -> Cellable {
-        return ColorCellModel()
+    static func makeColorCells(count: Int) -> [Cellable] {
+        var cells : [Cellable] = []
+        for _ in 0..<count {
+            cells.append(ColorCellModel())
+        }
+        return cells
     }
 }
