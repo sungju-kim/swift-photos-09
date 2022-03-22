@@ -27,7 +27,7 @@ extension CGColor{
     static func random() -> CGColor {
         
         var randomColor: CGFloat{
-            CGFloat(Int.random(in: 0...255))
+            CGFloat.random(in: 0...1.0)
         }
         return CGColor(red: randomColor, green: randomColor, blue: randomColor, alpha: 1)
     }
