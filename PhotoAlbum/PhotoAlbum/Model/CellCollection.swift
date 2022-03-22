@@ -26,6 +26,10 @@ class CellCollection{
     func addCell(with cell: Cellable) {
         self.cells.append(cell)
     }
+    
+    func addCells(with cells: [Cellable]) {
+        self.cells += cells
+    }
 
     
 }

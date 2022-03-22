@@ -8,7 +8,7 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
     @IBOutlet var albumCollectionView: UICollectionView!
     
     let cellCollection = CellCollection()
@@ -21,17 +21,13 @@ class ViewController: UIViewController {
         albumCollectionView.delegate = self
         albumCollectionView.dataSource = self
         
-        make40Cell()
+        makeCell(count: 40)
     }
     
-    func make40Cell() {
-        for _ in 0..<40 {
-            let newCell = CellFactory.makeColorCell()
-            cellCollection.addCell(with: newCell)
-        }
+    func makeCell(count: Int) {
+        let newCells = CellModelFactory.makeColorCells(count: count)
+        cellCollection.addCells(with: newCells)
     }
-
-
 }
 
 extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -42,9 +38,9 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AlbumCollectionViewCell.cellID, for: indexPath) as? AlbumCollectionViewCell else { return UICollectionViewCell()}
-        if let cellModel = cellCollection[indexPath.row] as? ColorCell {
+        if let cellModel = cellCollection[indexPath.row] as? ColorCellModel {
             let cellColor = cellModel.getColor()
-            let convertedColor = Convertor.convertColor(from: cellColor)
+            let convertedColor = UIColor(cgColor: cellColor)
             cell.changeColor(to: convertedColor)
         }
         return cell
