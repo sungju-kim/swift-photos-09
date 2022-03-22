@@ -8,8 +8,8 @@
 import Foundation
 import UIKit
 
-protocol PhotoCellable {
-    var imageView : UIImageView? { get }
+protocol PhotoSetable {
+    var imageView : UIImageView { get }
     
     func setImage(to image: Data)
 }
