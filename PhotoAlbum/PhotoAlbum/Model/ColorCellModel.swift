@@ -7,7 +7,7 @@
 
 import Foundation
 
-class ColorCell: Cellable {
+class ColorCellModel: Cellable {
     
     private var color: Color
     

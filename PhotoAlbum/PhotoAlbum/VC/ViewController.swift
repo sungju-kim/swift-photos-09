@@ -26,7 +26,7 @@ class ViewController: UIViewController {
     
     func make40Cell() {
         for _ in 0..<40 {
-            let newCell = CellFactory.makeColorCell()
+            let newCell = CellModelFactory.makeColorCell()
             cellCollection.addCell(with: newCell)
         }
     }
@@ -42,7 +42,7 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AlbumCollectionViewCell.cellID, for: indexPath) as? AlbumCollectionViewCell else { return UICollectionViewCell()}
-        if let cellModel = cellCollection[indexPath.row] as? ColorCell {
+        if let cellModel = cellCollection[indexPath.row] as? ColorCellModel {
             let cellColor = cellModel.getColor()
             let convertedColor = Convertor.convertColor(from: cellColor)
             cell.changeColor(to: convertedColor)

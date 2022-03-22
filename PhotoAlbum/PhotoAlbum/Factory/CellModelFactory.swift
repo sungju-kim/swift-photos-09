@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct CellFactory {
+struct CellModelFactory {
     static func makeColorCell() -> Cellable {
-        return ColorCell()
+        return ColorCellModel()
     }
 }
