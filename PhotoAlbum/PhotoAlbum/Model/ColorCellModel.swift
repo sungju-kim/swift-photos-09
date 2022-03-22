@@ -10,7 +10,7 @@ import CoreGraphics
 
 class ColorCellModel: Cellable {
     
-    private var color: CGColor
+    private(set) var color: CGColor
     
     init() {
         color = CGColor.random()
@@ -20,6 +20,13 @@ class ColorCellModel: Cellable {
         return self.color
     }
 }
+
+extension ColorCellModel: Equatable {
+    static func == (lhs: ColorCellModel, rhs: ColorCellModel) -> Bool {
+        return lhs === rhs
+    }
+}
+
 
 
 extension CGColor{
