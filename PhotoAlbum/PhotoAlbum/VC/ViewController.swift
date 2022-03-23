@@ -23,6 +23,7 @@ class ViewController: UIViewController {
         albumCollectionView.reloadData()
         albumCollectionView.delegate = self
         albumCollectionView.dataSource = self
+        PHPhotoLibrary.shared().register(self)
         
         albumCollectionView.reloadData()
         
@@ -50,7 +51,10 @@ class ViewController: UIViewController {
     }
 }
 
-extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource, PHPhotoLibraryChangeObserver {
+    func photoLibraryDidChange(_ changeInstance: PHChange) {
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return cellCollection.count
     }
