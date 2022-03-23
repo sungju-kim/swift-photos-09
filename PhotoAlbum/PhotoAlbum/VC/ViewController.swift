@@ -44,10 +44,14 @@ class ViewController: UIViewController {
     }
     
     func requestPhoto() {
+        
+        let allPhotosOptions = PHFetchOptions()
+        allPhotosOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
+        
         let cameraRoll: PHFetchResult<PHAssetCollection> = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumUserLibrary, options: nil)
         guard let cameraRollCollection = cameraRoll.firstObject else {return }
         
-        self.fetchResult = PHAsset.fetchAssets(in: cameraRollCollection, options: nil)
+        self.fetchResult = PHAsset.fetchAssets(in: cameraRollCollection, options: allPhotosOptions)
     }
 }
 
