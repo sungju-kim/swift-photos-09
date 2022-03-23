@@ -11,6 +11,7 @@ import UIKit
 class PhotoCell: AlbumCollectionViewCell, PhotoSetable {
     private(set) var imageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.accessibilityIdentifier = "photoCellImageView"
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -18,6 +19,7 @@ class PhotoCell: AlbumCollectionViewCell, PhotoSetable {
     override init(frame: CGRect) {
         super.init(frame: frame)
         layout()
+        self.accessibilityIdentifier = "AlbumCollectionViewCell"
     }
     
     required init?(coder: NSCoder) {
