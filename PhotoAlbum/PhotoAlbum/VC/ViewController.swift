@@ -24,9 +24,8 @@ class ViewController: UIViewController {
         albumCollectionView.delegate = self
         albumCollectionView.dataSource = self
         
-//        makeCell(count: 40)
-        
-//        let photoAuthState = PHPhotoLibrary.authorizationStatus()
+
+
         
         self.requestPhoto()
         albumCollectionView.reloadData()
@@ -57,18 +56,19 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AlbumCollectionViewCell.cellID, for: indexPath) as? AlbumCollectionViewCell else { return UICollectionViewCell()}
-//        if let cellModel = cellCollection[indexPath.row] as? ColorCellModel {
-//            let cellColor = cellModel.getColor()
-//            let convertedColor = UIColor(cgColor: cellColor)
-//            cell.changeColor(to: convertedColor)
-//        }
-        
-        let asset: PHAsset = (fetchResult?.object(at: indexPath.row))!
+
+      
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AlbumCollectionViewCell.cellID, for: indexPath) as? PhotoCell else { return UICollectionViewCell()}
+        if let cellModel = cellCollection[indexPath.row] as? PhotoCellModel {
+            let cellImageData = cellModel.getImage()
+            
+            let asset: PHAsset = (fetchResult?.object(at: indexPath.row))!
         imageManager.requestImage(for: asset, targetSize: CGSize(width: 100, height: 100), contentMode: .aspectFill, options:nil) { img, _ in
-            cell.imageView.image = img
+            cell.setImage(to: img)
+          
         }
-        
+        }
+   
         return cell
     }
 }
