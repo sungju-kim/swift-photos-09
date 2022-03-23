@@ -16,40 +16,25 @@ class ViewController: UIViewController {
     
     let cellCollection = CellCollection()
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.requestPhoto()
-        makePhotoCell()
-    }
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
         
         albumCollectionView.register(PhotoCell.self, forCellWithReuseIdentifier: AlbumCollectionViewCell.cellID)
         albumCollectionView.reloadData()
         albumCollectionView.delegate = self
         albumCollectionView.dataSource = self
         
-       
         albumCollectionView.reloadData()
         
-        
-        
-        
+        self.requestPhoto()
+        makePhotoCell()
     }
     
     func makePhotoCell() {
-        for i in 0..<fetchResult!.count {
-            let asset: PHAsset = (fetchResult?.object(at: i))!
-            imageManager.requestImageDataAndOrientation(for: asset, options: nil) { data, _, _, _ in
-                if let data = data {
-                    let newCell = PhotoCellModel(image: data)
-                    self.cellCollection.addCell(with: newCell)
-                }
-            }
-        }
-        
+        guard let assets = self.fetchResult else {return}
+        let count = assets.count
+        let cells = CellModelFactory.makePhotoCell(with: assets, count: count)
+        cellCollection.addCells(with: cells)
     }
     
     func makeCell(count: Int) {
@@ -73,15 +58,11 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AlbumCollectionViewCell.cellID, for: indexPath) as? PhotoCell else { return UICollectionViewCell()}
         let cellModel = cellCollection[indexPath.row] as? PhotoCellModel
-        if let imageData = cellModel?.getImage() {
-            cell.setImage(to: UIImage(data: imageData))
+        if let asset = cellModel?.getImage() {
+            imageManager.requestImage(for: asset, targetSize: CGSize(width: 100, height: 100), contentMode: .aspectFit, options:nil) { img, _ in
+                cell.setImage(to: img)
+            }
         }
-        
-//        imageManager.requestImage(for: asset, targetSize: CGSize(width: 100, height: 100), contentMode: .aspectFit, options:nil) { img, _ in
-//
-//            cell.setImage(to: img)
-//        }
-        
         return cell
     }
 }

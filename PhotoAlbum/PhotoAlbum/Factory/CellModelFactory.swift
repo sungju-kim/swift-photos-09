@@ -16,12 +16,13 @@ struct CellModelFactory {
         return cells
     }
     
-//    static func makePhotoCell(image: PHFetchResult<PHAssetCollection> ) -> [Cellable] {
-//        var cells : [Cellable] = []
-//        for i in 0..<image.count {
-//            let imageData = image[i]
-//            cells.append(PhotoCellModel(image: <#T##Data#>))
-//        }
-//        return cells
-//    }
+    static func makePhotoCell(with image: PHFetchResult<PHAsset>, count: Int ) -> [Cellable] {
+        var cells : [Cellable] = []
+        for i in 0..<count {
+            let asset: PHAsset = image.object(at: i)
+            let newCell = PhotoCellModel(image: asset)
+            cells.append(newCell)
+        }
+        return cells
+    }
 }

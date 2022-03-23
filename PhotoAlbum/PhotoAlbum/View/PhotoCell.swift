@@ -25,7 +25,6 @@ class PhotoCell: AlbumCollectionViewCell, PhotoSetable {
     }
     
     func setImage(to image: UIImage?) {
-//        let image = UIImage(data: image)
         guard let image = image else {return }
         self.imageView.image = image
     }

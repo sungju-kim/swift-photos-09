@@ -6,15 +6,16 @@
 //
 
 import Foundation
+import Photos
 
 class PhotoCellModel: Cellable {
-    private(set) var image: Data
+    private(set) var image: PHAsset
     
-    init(image: Data) {
+    init(image: PHAsset) {
         self.image = image
     }
     
-    func getImage() -> Data {
+    func getImage() -> PHAsset {
         return self.image
     }
 }
