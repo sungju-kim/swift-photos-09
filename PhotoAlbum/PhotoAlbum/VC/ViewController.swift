@@ -19,13 +19,11 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         
-        albumCollectionView.register(AlbumCollectionViewCell.self, forCellWithReuseIdentifier: AlbumCollectionViewCell.cellID)
+        
+        albumCollectionView.register(PhotoCell.self, forCellWithReuseIdentifier: AlbumCollectionViewCell.cellID)
         
         albumCollectionView.delegate = self
         albumCollectionView.dataSource = self
-        
-
-
         
         self.requestPhoto()
         albumCollectionView.reloadData()
@@ -45,30 +43,27 @@ class ViewController: UIViewController {
         guard let cameraRollCollection = cameraRoll.firstObject else {return }
         
         self.fetchResult = PHAsset.fetchAssets(in: cameraRollCollection, options: nil)
+        
     }
 }
 
 extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-//        return self.cellCollection.count
         return fetchResult?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-
-      
+        
+        
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AlbumCollectionViewCell.cellID, for: indexPath) as? PhotoCell else { return UICollectionViewCell()}
-        if let cellModel = cellCollection[indexPath.row] as? PhotoCellModel {
-            let cellImageData = cellModel.getImage()
+
+        let asset: PHAsset = (fetchResult?.object(at: indexPath.row))!
+        imageManager.requestImage(for: asset, targetSize: CGSize(width: 100, height: 100), contentMode: .aspectFit, options:nil) { img, _ in
             
-            let asset: PHAsset = (fetchResult?.object(at: indexPath.row))!
-        imageManager.requestImage(for: asset, targetSize: CGSize(width: 100, height: 100), contentMode: .aspectFill, options:nil) { img, _ in
             cell.setImage(to: img)
-          
         }
-        }
-   
+        
         return cell
     }
 }

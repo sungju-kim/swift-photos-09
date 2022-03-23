@@ -24,8 +24,9 @@ class PhotoCell: AlbumCollectionViewCell, PhotoSetable {
         super.init(coder: coder)
     }
     
-    func setImage(to image: Data) {
-        let image = UIImage(data: image)
+    func setImage(to image: UIImage?) {
+//        let image = UIImage(data: image)
+        guard let image = image else {return }
         self.imageView.image = image
     }
     
@@ -35,5 +36,6 @@ class PhotoCell: AlbumCollectionViewCell, PhotoSetable {
         self.imageView.trailingAnchor.constraint(equalTo: self.imageView.trailingAnchor).isActive = true
         self.imageView.topAnchor.constraint(equalTo: self.imageView.topAnchor).isActive = true
         self.imageView.bottomAnchor.constraint(equalTo: self.imageView.bottomAnchor).isActive = true
+        self.clipsToBounds = true
     }
 }

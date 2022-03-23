@@ -11,5 +11,5 @@ import UIKit
 protocol PhotoSetable {
     var imageView : UIImageView { get }
     
-    func setImage(to image: Data)
+    func setImage(to image: UIImage?)
 }
