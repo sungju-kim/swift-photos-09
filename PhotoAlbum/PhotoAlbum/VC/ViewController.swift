@@ -6,32 +6,26 @@
 //
 
 import UIKit
-import Photos
 
 class ViewController: UIViewController {
     
     @IBOutlet var albumCollectionView: UICollectionView!
-    private var fetchResult: PHFetchResult<PHAsset>?
-    private let imageManager: PHCachingImageManager = PHCachingImageManager()
     
     private let cellCollection = CellCollection()
-    
+    private var photoResult = PhotoManager()
     override func viewDidLoad() {
         super.viewDidLoad()
         
         albumCollectionView.register(PhotoCell.self, forCellWithReuseIdentifier: AlbumCollectionViewCell.cellID)
         albumCollectionView.delegate = self
         albumCollectionView.dataSource = self
-        PHPhotoLibrary.shared().register(self)
-        
         albumCollectionView.reloadData()
-        
-        self.requestPhoto()
+
         self.makePhotoCell()
     }
     
     func makePhotoCell() {
-        guard let assets = self.fetchResult else {return}
+        let assets = photoResult.loadPhotoLibrary()
         let count = assets.count
         let cells = CellModelFactory.makePhotoCell(with: assets, count: count)
         cellCollection.addCells(with: cells)
