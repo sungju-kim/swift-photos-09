@@ -13,6 +13,7 @@ class ViewController: UIViewController {
     
     private let cellCollection = CellCollection()
     private var photoManager = PhotoManager()
+    private var jsonManager = JsonManager()
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -23,6 +24,8 @@ class ViewController: UIViewController {
         albumCollectionView.dataSource = self
         albumCollectionView.reloadData()
         photoManager.loadPhotoLibrary()
+        
+        jsonManager.load()
     }
     
     func makeCell(count: Int) {
