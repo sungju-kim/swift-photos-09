@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Photos
 
 class PhotoCellModel: Cellable {
     private(set) var image: Data
