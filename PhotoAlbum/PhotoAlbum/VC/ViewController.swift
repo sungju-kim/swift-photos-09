@@ -11,16 +11,15 @@ import Photos
 class ViewController: UIViewController {
     
     @IBOutlet var albumCollectionView: UICollectionView!
-    var fetchResult: PHFetchResult<PHAsset>?
-    let imageManager: PHCachingImageManager = PHCachingImageManager()
+    private var fetchResult: PHFetchResult<PHAsset>?
+    private let imageManager: PHCachingImageManager = PHCachingImageManager()
     
-    let cellCollection = CellCollection()
+    private let cellCollection = CellCollection()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         albumCollectionView.register(PhotoCell.self, forCellWithReuseIdentifier: AlbumCollectionViewCell.cellID)
-        albumCollectionView.reloadData()
         albumCollectionView.delegate = self
         albumCollectionView.dataSource = self
         PHPhotoLibrary.shared().register(self)
@@ -28,7 +27,7 @@ class ViewController: UIViewController {
         albumCollectionView.reloadData()
         
         self.requestPhoto()
-        makePhotoCell()
+        self.makePhotoCell()
     }
     
     func makePhotoCell() {
@@ -68,6 +67,7 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource, 
         let cellModel = cellCollection[indexPath.row] as? PhotoCellModel
         if let asset = cellModel?.getImage() {
             imageManager.requestImage(for: asset, targetSize: CGSize(width: 100, height: 100), contentMode: .aspectFit, options:nil) { img, _ in
+                guard let img = img else {return}
                 cell.setImage(to: img)
             }
         }

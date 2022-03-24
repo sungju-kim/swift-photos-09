@@ -24,10 +24,11 @@ class PhotoCell: AlbumCollectionViewCell, PhotoSetable {
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+        layout()
+        self.accessibilityIdentifier = "AlbumCollectionViewCell"
     }
     
-    func setImage(to image: UIImage?) {
-        guard let image = image else {return }
+    func setImage(to image: UIImage) {
         self.imageView.image = image
     }
     
