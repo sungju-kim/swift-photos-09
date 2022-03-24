@@ -9,13 +9,13 @@ import Foundation
 import Photos
 
 class PhotoCellModel: Cellable {
-    private(set) var image: PHAsset
+    private(set) var image: Data
     
-    init(image: PHAsset) {
+    init(image: Data) {
         self.image = image
     }
     
-    func getImage() -> PHAsset {
+    func getImage() -> Data {
         return self.image
     }
 }

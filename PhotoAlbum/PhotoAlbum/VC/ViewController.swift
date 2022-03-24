@@ -35,22 +35,9 @@ class ViewController: UIViewController {
         let newCells = CellModelFactory.makeColorCells(count: count)
         cellCollection.addCells(with: newCells)
     }
-    
-    func requestPhoto() {
-        
-        let allPhotosOptions = PHFetchOptions()
-        allPhotosOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
-        
-        let cameraRoll: PHFetchResult<PHAssetCollection> = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumUserLibrary, options: nil)
-        guard let cameraRollCollection = cameraRoll.firstObject else {return }
-        
-        self.fetchResult = PHAsset.fetchAssets(in: cameraRollCollection, options: allPhotosOptions)
-    }
 }
 
-extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource, PHPhotoLibraryChangeObserver {
-    func photoLibraryDidChange(_ changeInstance: PHChange) {
-    }
+extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return cellCollection.count
@@ -58,12 +45,11 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource, 
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AlbumCollectionViewCell.cellID, for: indexPath) as? PhotoCell else { return UICollectionViewCell()}
+        
         let cellModel = cellCollection[indexPath.row] as? PhotoCellModel
         if let asset = cellModel?.getImage() {
-            imageManager.requestImage(for: asset, targetSize: CGSize(width: 100, height: 100), contentMode: .aspectFit, options:nil) { img, _ in
-                guard let img = img else {return}
-                cell.setImage(to: img)
-            }
+            let image = UIImage(data: asset) ?? UIImage()
+            cell.setImage(to: image)
         }
         return cell
     }
