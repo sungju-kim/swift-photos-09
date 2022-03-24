@@ -12,23 +12,17 @@ class ViewController: UIViewController {
     @IBOutlet var albumCollectionView: UICollectionView!
     
     private let cellCollection = CellCollection()
-    private var photoResult = PhotoManager()
+    private var photoManager = PhotoManager()
     override func viewDidLoad() {
         super.viewDidLoad()
         
         albumCollectionView.register(PhotoCell.self, forCellWithReuseIdentifier: AlbumCollectionViewCell.cellID)
+        
+        photoManager.delegate = self
         albumCollectionView.delegate = self
         albumCollectionView.dataSource = self
         albumCollectionView.reloadData()
-
-        self.makePhotoCell()
-    }
-    
-    func makePhotoCell() {
-        let assets = photoResult.loadPhotoLibrary()
-        let count = assets.count
-        let cells = CellModelFactory.makePhotoCell(with: assets, count: count)
-        cellCollection.addCells(with: cells)
+        photoManager.loadPhotoLibrary()
     }
     
     func makeCell(count: Int) {
@@ -37,7 +31,14 @@ class ViewController: UIViewController {
     }
 }
 
-extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource, PhotoManagerDelegate {
+    func photoManager(didLoad data: [Data]) {
+        let assets = data
+        let count = assets.count
+        let cells = CellModelFactory.makePhotoCell(with: assets, count: count)
+        cellCollection.addCells(with: cells)
+    }
+    
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return cellCollection.count
