@@ -11,17 +11,18 @@ class ViewController: UIViewController {
     
     @IBOutlet var albumCollectionView: UICollectionView!
     
-    let cellCollection = CellCollection()
+    private let cellCollection = CellCollection()
+    private var photoManager = PhotoManager()
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        albumCollectionView.register(PhotoCell.self, forCellWithReuseIdentifier: AlbumCollectionViewCell.cellID)
         
-        albumCollectionView.register(AlbumCollectionViewCell.self, forCellWithReuseIdentifier: AlbumCollectionViewCell.cellID)
-        
+        photoManager.delegate = self
         albumCollectionView.delegate = self
         albumCollectionView.dataSource = self
-        
-        makeCell(count: 40)
+        albumCollectionView.reloadData()
+        photoManager.loadPhotoLibrary()
     }
     
     func makeCell(count: Int) {
@@ -30,18 +31,26 @@ class ViewController: UIViewController {
     }
 }
 
-extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource, PhotoManagerDelegate {
+    func photoManager(didLoad data: [Data]) {
+        let assets = data
+        let count = assets.count
+        let cells = CellModelFactory.makePhotoCell(with: assets, count: count)
+        cellCollection.addCells(with: cells)
+    }
+    
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
-        return self.cellCollection.count
+        return cellCollection.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AlbumCollectionViewCell.cellID, for: indexPath) as? AlbumCollectionViewCell else { return UICollectionViewCell()}
-        if let cellModel = cellCollection[indexPath.row] as? ColorCellModel {
-            let cellColor = cellModel.getColor()
-            let convertedColor = UIColor(cgColor: cellColor)
-            cell.changeColor(to: convertedColor)
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AlbumCollectionViewCell.cellID, for: indexPath) as? PhotoCell else { return UICollectionViewCell()}
+        
+        let cellModel = cellCollection[indexPath.row] as? PhotoCellModel
+        if let asset = cellModel?.getImage() {
+            let image = UIImage(data: asset) ?? UIImage()
+            cell.setImage(to: image)
         }
         return cell
     }
