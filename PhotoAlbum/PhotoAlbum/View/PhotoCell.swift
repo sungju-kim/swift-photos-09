@@ -34,10 +34,9 @@ class PhotoCell: AlbumCollectionViewCell, PhotoSetable {
     
     private func layout() {
         self.addSubview(imageView)
-        self.imageView.leadingAnchor.constraint(equalTo: self.imageView.leadingAnchor).isActive = true
-        self.imageView.trailingAnchor.constraint(equalTo: self.imageView.trailingAnchor).isActive = true
-        self.imageView.topAnchor.constraint(equalTo: self.imageView.topAnchor).isActive = true
-        self.imageView.bottomAnchor.constraint(equalTo: self.imageView.bottomAnchor).isActive = true
+        self.imageView.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        self.imageView.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        self.imageView.contentMode = .scaleAspectFill
         self.clipsToBounds = true
     }
 }
