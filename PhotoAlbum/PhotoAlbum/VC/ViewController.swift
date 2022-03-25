@@ -26,9 +26,6 @@ class ViewController: UIViewController {
         albumCollectionView.reloadData()
         
         jsonManager.load()
-        
-        
-        
     }
     
     func makeCell(count: Int) {
@@ -63,8 +60,8 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource, 
 }
 
 extension ViewController: JsonManagerDelegate {
-    func jsonManager(didLoad data: [URLImage]) {
-        let data = ImageDownloader.download(from: data)
+    func jsonManager(didLoad imageData: [URLImage]) {
+        let data: [Data] = ImageDownloader.download(from: imageData)
         let count = data.count
         let cells = CellModelFactory.makePhotoCell(with: data, count: count)
         cellCollection.addCells(with: cells)

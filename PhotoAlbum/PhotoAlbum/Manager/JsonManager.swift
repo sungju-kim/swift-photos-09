@@ -8,7 +8,7 @@
 import Foundation
 
 protocol JsonManagerDelegate{
-    func jsonManager(didLoad data: [URLImage])
+    func jsonManager(didLoad imageData: [URLImage])
 }
 
 struct JsonManager {
