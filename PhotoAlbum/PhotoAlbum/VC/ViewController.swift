@@ -25,7 +25,12 @@ class ViewController: UIViewController {
         albumCollectionView.dataSource = self
         albumCollectionView.reloadData()
         
-        jsonManager.load()
+        DispatchQueue.global().async {
+            self.jsonManager.load()
+            DispatchQueue.main.sync {
+                self.albumCollectionView.reloadData()
+            }
+        }
     }
     
     func makeCell(count: Int) {

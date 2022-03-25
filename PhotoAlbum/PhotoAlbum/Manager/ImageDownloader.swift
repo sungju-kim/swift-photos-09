@@ -11,16 +11,13 @@ class ImageDownloader {
     static func download(from imageData:[URLImage]) -> [String:Data] {
         var data : [String:Data] = [:]
         let group = DispatchGroup()
-        let imageQueue = DispatchQueue.init(label: "imageDownload")
-        imageQueue.sync {
-            for imageDatum in imageData {
-                group.enter()
-                DispatchQueue.global().async {
-                    if let datum = try? Data(contentsOf: imageDatum.image){
-                        data.append(datum)
-                    }
-                    group.leave()
+        for imageDatum in imageData {
+            group.enter()
+            DispatchQueue.global().async {
+                if let datum = try? Data(contentsOf: imageDatum.image){
+                    data[imageDatum.title] = datum
                 }
+                group.leave()
             }
         }
         group.wait()
