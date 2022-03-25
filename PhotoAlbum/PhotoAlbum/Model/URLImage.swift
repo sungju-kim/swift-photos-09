@@ -9,6 +9,6 @@ import Foundation
 
 struct URLImage: Codable {
     let title: String
-    let image: String
+    let image: URL
     let date: String
 }

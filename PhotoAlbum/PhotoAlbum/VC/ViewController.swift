@@ -24,7 +24,6 @@ class ViewController: UIViewController {
         albumCollectionView.delegate = self
         albumCollectionView.dataSource = self
         albumCollectionView.reloadData()
-        photoManager.loadPhotoLibrary()
         
         jsonManager.load()
         
@@ -65,8 +64,10 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource, 
 
 extension ViewController: JsonManagerDelegate {
     func jsonManager(didLoad data: [URLImage]) {
-        
-        
+        let data = ImageDownloader.download(from: data)
+        let count = data.count
+        let cells = CellModelFactory.makePhotoCell(with: data, count: count)
+        cellCollection.addCells(with: cells)
     }
 
 }
