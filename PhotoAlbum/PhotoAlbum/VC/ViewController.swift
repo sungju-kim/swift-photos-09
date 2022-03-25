@@ -20,12 +20,16 @@ class ViewController: UIViewController {
         albumCollectionView.register(PhotoCell.self, forCellWithReuseIdentifier: AlbumCollectionViewCell.cellID)
         
         photoManager.delegate = self
+        jsonManager.delegate = self 
         albumCollectionView.delegate = self
         albumCollectionView.dataSource = self
         albumCollectionView.reloadData()
         photoManager.loadPhotoLibrary()
         
         jsonManager.load()
+        
+        
+        
     }
     
     func makeCell(count: Int) {
@@ -57,4 +61,12 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource, 
         }
         return cell
     }
+}
+
+extension ViewController: JsonManagerDelegate {
+    func jsonManager(didLoad data: [URLImage]) {
+        
+        
+    }
+
 }

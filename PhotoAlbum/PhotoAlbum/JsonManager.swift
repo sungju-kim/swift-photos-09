@@ -7,8 +7,13 @@
 
 import Foundation
 
+protocol JsonManagerDelegate{
+    func jsonManager(didLoad data: [URLImage])
+}
 
 struct JsonManager {
+    
+    var delegate: JsonManagerDelegate?
     
     func load() {
         let fileName = "doodle"
@@ -25,7 +30,9 @@ struct JsonManager {
     }
     
     private func decode(to data: Data) {
-        let photoList = try? JSONDecoder().decode([URLImage].self, from: data)
+        guard let photoList = try? JSONDecoder().decode([URLImage].self, from: data) else { return }
+        delegate?.jsonManager(didLoad: photoList)
+        
     }
     
 }
