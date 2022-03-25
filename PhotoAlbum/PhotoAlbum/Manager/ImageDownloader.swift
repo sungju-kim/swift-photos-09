@@ -8,8 +8,8 @@
 import Foundation
 
 class ImageDownloader {
-    static func download(from imageData:[URLImage]) -> [Data] {
-        var data : [Data] = []
+    static func download(from imageData:[URLImage]) -> [String:Data] {
+        var data : [String:Data] = [:]
         let group = DispatchGroup()
         let imageQueue = DispatchQueue.init(label: "imageDownload")
         imageQueue.sync {

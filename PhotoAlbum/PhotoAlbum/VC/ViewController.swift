@@ -61,7 +61,7 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource, 
 
 extension ViewController: JsonManagerDelegate {
     func jsonManager(didLoad imageData: [URLImage]) {
-        let data: [Data] = ImageDownloader.download(from: imageData)
+        let data: [String: Data] = ImageDownloader.download(from: imageData)
         let count = data.count
         let cells = CellModelFactory.makePhotoCell(with: data, count: count)
         cellCollection.addCells(with: cells)

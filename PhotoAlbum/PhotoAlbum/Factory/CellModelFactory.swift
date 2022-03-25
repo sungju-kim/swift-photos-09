@@ -25,4 +25,14 @@ struct CellModelFactory {
         }
         return cells
     }
+    
+    static func makePhotoCell(with image: [String:Data], count: Int ) -> [Cellable] {
+        var cells : [Cellable] = []
+        for i in 1...count {
+            guard let asset: Data = image[String(i)] else { continue }
+            let newCell = PhotoCellModel(image: asset)
+            cells.append(newCell)
+        }
+        return cells
+    }
 }
