@@ -13,16 +13,24 @@ class ViewController: UIViewController {
     
     private let cellCollection = CellCollection()
     private var photoManager = PhotoManager()
+    private var jsonManager = JsonManager()
     override func viewDidLoad() {
         super.viewDidLoad()
         
         albumCollectionView.register(PhotoCell.self, forCellWithReuseIdentifier: AlbumCollectionViewCell.cellID)
         
         photoManager.delegate = self
+        jsonManager.delegate = self 
         albumCollectionView.delegate = self
         albumCollectionView.dataSource = self
         albumCollectionView.reloadData()
-        photoManager.loadPhotoLibrary()
+        
+        DispatchQueue.global().async {
+            self.jsonManager.load()
+            DispatchQueue.main.sync {
+                self.albumCollectionView.reloadData()
+            }
+        }
     }
     
     func makeCell(count: Int) {
@@ -54,4 +62,14 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource, 
         }
         return cell
     }
+}
+
+extension ViewController: JsonManagerDelegate {
+    func jsonManager(didLoad imageData: [URLImage]) {
+        let data: [String: Data] = ImageDownloader.download(from: imageData)
+        let count = data.count
+        let cells = CellModelFactory.makePhotoCell(with: data, count: count)
+        cellCollection.addCells(with: cells)
+    }
+
 }
