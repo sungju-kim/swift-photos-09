@@ -5,34 +5,22 @@
 ### 작업 내용
 
 - Model
-
   - Colorcell 구현
-
   - CellCollection 구현
-
   - Color 구현
-
 - Protocol
   - Cellable 구현
-
 - CellFactory 구현
-
 - Color Convertor 구현
-
 - Model-VC 연결
 
 ### 고민과 해결
 
 - Git 으로 협업하는 과정에서 rebase가 진행되지 않고 pull로만 작업내용이 가져와지는 문제 발생.
-
   git fetch 를 진행할때 fetch upstream으로 하지않아 fetch 를 받아와도 rebase 할 작업내용이 없어서 발생하는 문제.
-
 - CollectionView 를 ViewController에 추가하고 해당 CollectionView에 40개의 셀을 띄우는 방법을 고민.
-
   여러 자료를 참고해서 CollectionViewDelegate와 CollectionViewDatasource를 ViewController가 채택함으로써 CollectionView를 만들기 위한 기능들을 구현.
-
 - 각자의 맥북이 m1 - intel 로 서로 달라 다른팀원의 코드를 가져와서 시뮬레이터로 실행하는중 버그가 발생하여 아키텍쳐 설정도 바꾸어보고 실제 아이폰에서 구동해보는등 여러 시도.
-
   결과적으로는 m1 - intel 의 문제가 아니라 Xcode 버젼이 달라서 발생했던 문제.
 
 ### 결과물
@@ -58,11 +46,8 @@
 ### 고민과 해결
 
 - PhotoCellModel의 이미지 정보를 Data 타입으로 넣으려고 했으나 MVC 흐름 구현에서 문제.
-
   PHAsset 타입을 활용하는게 용이해 PhotoCellModel의 이미지 타입을 PHAsset으로 변경.
-
 - Photos library를 활용한 로직구현 / MVC 설계 파트를 나누어 각자 작업을 진행하고 merge할때 충돌
-
   충돌부분이 많지 않아 서로 조율끝에 각자의 코드에서 필요한 부분만 가져와서 충돌해결.
 
 ### 결과물
@@ -89,12 +74,10 @@
 
 - 비동기 작업을 할때, 이미지를 다 받아오기 전에 cell을 생성하지 않도록 고민. 
   처음에는 `DispatchQueue.global().Sync` 안에 `DispatchQueue.global().Async`를 넣어보기도 하고,`DispatchQueue.global().Sync`로만 구성도 해보았지만 원하는 결과를 얻지 못함.
-
   `DispatchGroup` 의 `enter()` `leave()` `wait()` 를 사용하여 그룹안에 있는 작업들이 다 완료되기 전 까지 동기 방식으로 진행되도록 구현하여 해결
 
 - Sync 와 async를 사용해보면서 고민을 해보니 async를 사용했을때 여러 이미지를 동시에 받아오도록 할 수 있었지만, 받아온 이미지가 json의 순서대로 받아지지 않는 문제점.  
   배열을 미리 만들어 인덱스로도 접근해보고, 배열의 append() 부분만 sync로 처리를 하려고 시도 및 실패
-
   Json 파일에 있는 title을 딕셔너리의 key 값으로 사용해서, for문을 통해 순서대로 정렬하여 해결.  
   만약 title이 없거나, 숫자가 아닌경우 정렬이 되지 않는 문제점은 여전히 존재. 
 
